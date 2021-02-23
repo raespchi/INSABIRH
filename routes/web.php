@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\indexController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\FileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +21,5 @@ Route::get('/',[indexController::class, 'index' ]);
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'home'])->name('home');
+
+Route::get('download/{id}', [FileController::class, 'show'])->name('downloadfile');

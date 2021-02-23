@@ -35,17 +35,17 @@
             @foreach ($registros as $registro)
             <tr>
 
-            <td><div class="row d-flex justify-content-center"><strong > {{$registro->quincena}} </strong></div></td>
+            <td><div class="row d-flex justify-content-center"><h1><strong > {{$registro->quincena}} </strong></h1></div></td>
             <td>
 
             <div class="row d-flex justify-content-center"> 
 
             <ul class="list-group list-group-horizontal">
               <li class="list-group-item">                
-                <a href='../public/archivos/xml/2021/{{$registro->nombre_archivo}}.xml'><img src="../public/images/icono-XML.png " width="30px" height="30px" class="tooltip-test" title="Descargar XML"></a></li>
+                <a href="{{ route('downloadfile',$registro->nombre_archivo.'.xml') }}"><img src="../public/images/icono-XML.png " width="30px" height="30px" class="tooltip-test" title="Descargar XML"></a></br><a href='archivos/xml/2021/{{$registro->nombre_archivo}}.xml' target="_blank">Ver..</a></li>
 
               <li class="list-group-item">
-                <a href='../public/archivos/pdf/2021/{{$registro->nombre_archivo}}.pdf'><img src="../public/images/icono-PDF.png " width="30px" height="30px" title="Descargar PDF"></a></li>  
+                <a href="{{ route('downloadfile',$registro->nombre_archivo.'.pdf') }}""><img src="../public/images/icono-PDF.png " width="30px" height="30px" title="Descargar PDF"></a></br><a href='archivos/pdf/2021/{{$registro->nombre_archivo}}.pdf' target="_blank">Ver..</a></li>  
             </ul>
             
             </div>
