@@ -29,12 +29,11 @@ table th {
     <header>
         <!-- Fixed navbar -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
-              <div class="container">
-                 
+              <div class="container">                
                  @guest                           
                   @if (Route::has('register'))
                   <a class="navbar-brand" href="{{ url('/') }}">
-                      <img src="../public/images/insabi_logo2.png " alt="" width="400px" height="100px">
+                      <img src="../public/images/insabi_logo2.png" alt="" width="400px" height="100px">
                   </a>
                   @endif
                       @else
