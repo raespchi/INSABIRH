@@ -1,5 +1,5 @@
-Bienvenido!!</br>
+Hola <b> {{$name}} !!</b></br></br>
 
-Hola {{$name}} para activar tu cuenta haz clic <a href="{{url('activacion/'.$code)}}">aqui</a>, no es necesario responder a este correo.</br>
+Haz clic <a href="{{url('activacion/'.$code)}}">aquí</a> para activar tu cuenta, no es necesario responder a este correo.</br></br>
 
 © 2021 Copyright: <b>INSABI CAMPECHE</b>

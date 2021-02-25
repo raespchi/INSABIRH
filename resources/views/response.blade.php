@@ -1,4 +1,4 @@
-@section('title', 'Atención')
+@section('title', 'Registro | Paso 2')
 
 @extends('layout')
 
@@ -18,7 +18,7 @@
                         <span aria-hidden="true">&times;</span>
                         </button>
                     </div>    
-                    
+
                 </div>
             </div>
         </div>

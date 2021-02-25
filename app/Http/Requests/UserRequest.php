@@ -27,6 +27,8 @@ class UserRequest extends FormRequest
     {
         return [
             'password' => 'required|confirmed|min:8',
+
+         
         ];
     }
 }
