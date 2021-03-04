@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use Redirect;
 use App\Http\Requests\UserRequest; //aqui mando a llamar al request que cree
+use Session; //PARA USAR SESSIONES Y MANDAR MENSAJE EN MISMA PANTALLA
+
 
 class UserController extends Controller
 {
@@ -36,9 +39,21 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function validarRFC(request $request)
+    {        
+       
+        $validator = Validator::make($request->all(), [
+            'rfc' => ['required', 'string', 'min:13','unique:users'],  
+        ]);
+               
+        if ($validator->fails()) {           
+                return Redirect('register')
+                            ->withErrors($validator)
+                            ->withInput();
+        }else{
+            Session::flash('mensaje',"El RFC escrito no se encuenta en nuestros registros de empleados.");        
+        return Redirect::to('register')  ;
+        }       
     }
 
     public function activate($code)
@@ -62,6 +77,7 @@ class UserController extends Controller
         $user->password = bcrypt($request->password);  
         $user->active = 1;
         $user->save();
+        Session::flash('mensaje',"concluyó con su registro, ya puede acceder al portal."); //PARA ENVIAR MENSAJES EN LA MISMA PANTALLA
         return redirect::to('/');
     }
 

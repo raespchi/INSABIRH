@@ -5,8 +5,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!-- Bootstrap core CSS -->
-        <link rel="stylesheet" href="{{asset('css/app.css')}}">
+        <link rel="stylesheet" href="{{asset('css/app.css')}}">    
         <script src="{{asset('js/app.js')}}"></script>       
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
         <!-- PRIMERA PARTE PARA FUNCIONAMIENTO DE DATATABLE Y PAGINATION -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
@@ -14,14 +16,16 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.bootstrap4.min.css">
         
         <!-- PARA FUNCIONAMIENTO DE BOTONES EN DATATABLE -->
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.6.4/css/buttons.dataTables.min.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.6.4/css/buttons.dataTables.min.css">       
     
-        <style type="text/css">/*estilos para la tabla*/
-table th {
-    background-color: #a22244 !important;
-    color: white;
-}</style>
-        
+        <!--estilos para la tabla-->
+        <style type="text/css">
+          table th {
+              background-color: #a22244 !important;
+              color: white;
+          }
+        </style>       
+       
         <title>@yield('title')</title>              
     </head>
 
@@ -55,10 +59,12 @@ table th {
                         @guest                           
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Registrarse') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Registrarse') }}</a> <!-- route('register') -->
                                 </li>
                             @endif
-                        @else                          
+                        @else        
+
+
                              <li class="nav-item dropdown">                               
                                   <a class="nav-link" href="#" role="button" aria-haspopup="true" aria-expanded="false" v-pre                                  
                                        onclick="event.preventDefault();
@@ -139,5 +145,24 @@ table th {
   });
 </script>
 <!-- FINALIZA SEGUNDA PARTE DATATABLE Y PAGINATION -->
+
+<script>
+    $(document).ready(function () {
+
+        $("#form1").submit(function (e) {
+
+           
+
+            //disable the submit button
+            $("#btnSubmit").attr("disabled", true);
+
+            //disable a normal button
+            $("#btnGuard").attr("disabled", true);
+
+            return true;
+
+        });
+    });
+</script>
 
 </html>

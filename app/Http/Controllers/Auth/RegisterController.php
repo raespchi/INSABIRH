@@ -61,7 +61,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [                                
-            'rfc' => ['required', 'string', 'min:13','unique:users'],           
+            //'rfc' => ['required', 'string', 'min:13','unique:users'],           
             'email' => ['required', 'string', 'email', 'max:255'],
             //'password' => ['required', 'string', 'min:8', 'confirmed'],
 
@@ -82,7 +82,7 @@ class RegisterController extends Controller
         $this->Email($dates,$email);
 
         return User::create([
-            'rfc' => strtoupper($data['rfc']),           
+            //'rfc' => strtoupper($data['rfc']),  //strtoupper convierte a mayusculas la cadena mandada         
             'name' => strtoupper($data['name']),
             'last_name' => strtoupper($data['last_name']),
             'email' => $data['email'],

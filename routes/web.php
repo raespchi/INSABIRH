@@ -31,3 +31,6 @@ Route::get('/response', function(){
 Route::get('activacion/{code}',[UserController::class, 'activate']);
 
 Route::post('complete/{id}',[UserController::class, 'complete']);
+
+Route::post('validarfc', [UserController::class, 'validarRFC']);
+

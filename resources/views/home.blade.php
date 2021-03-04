@@ -42,10 +42,10 @@
 
             <ul class="list-group list-group-horizontal">
               <li class="list-group-item">                
-                <a href="{{ route('downloadfile',$registro->nombre_archivo.'.xml') }}"><img src="../public/images/icono-XML.png " width="30px" height="30px" class="tooltip-test" title="Descargar XML"></a></br><a href='archivos/xml/2021/{{$registro->nombre_archivo}}.xml' target="_blank">Ver..</a></li>
+                <a href="{{ route('downloadfile',$registro->nombre_archivo.'.xml') }}"><img src="../public/images/icono-XML.png " width="30px" height="30px" class="tooltip-test" title="Descargar XML"></a></br><a href='archivos/xml/2021/{{$registro->nombre_archivo}}.xml' target="_blank">Ver...</a></li>
 
               <li class="list-group-item">
-                <a href="{{ route('downloadfile',$registro->nombre_archivo.'.pdf') }}""><img src="../public/images/icono-PDF.png " width="30px" height="30px" title="Descargar PDF"></a></br><a href='archivos/pdf/2021/{{$registro->nombre_archivo}}.pdf' target="_blank">Ver..</a></li>  
+                <a href="{{ route('downloadfile',$registro->nombre_archivo.'.pdf') }}""><img src="../public/images/icono-PDF.png " width="30px" height="30px" title="Descargar PDF"></a></br><a href='archivos/pdf/2021/{{$registro->nombre_archivo}}.pdf' target="_blank">Ver...</a></li>  
             </ul>
             
             </div>

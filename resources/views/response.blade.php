@@ -8,15 +8,15 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header"><strons>Aviso!!</strons></div>
+                <div class="card-header"><strons>Registro | Paso 2</strons></div>
 
                 <div class="card-body">
 
-                   <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        Se le envió un correo para que pueda activar su cuenta.                        
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                   <div class="alert alert-warning" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
-                        </button>
+                    </button>
+                        <strong>Atención!,</strong> se le envió un correo para que pueda activar su cuenta y tener acceso a la plataforma.                                                
                     </div>    
 
                 </div>
