@@ -16,13 +16,15 @@
 
                         <div class="form-group row">
 
-                            <label for="rfc" class="col-md-4 col-form-label text-md-right">  <button id="btnSubmit" type="submit" class="btn btn-primary btn-sm">
+                            <label for="rfc" class="col-md-4 col-form-label text-md-right">  
+                                <button id="btnSubmit" type="submit" class="btn btn-primary btn-sm">
                                     {{ __('Validar RFC') }}
-                                </button>        </label>
+                                </button>        
+                            </label>
 
                             <div class="col-md-6">
 
-                                <input style="text-transform:uppercase" id="rfc" type="text" class="form-control @error('rfc') @if ($errors->first('rfc')== 'Su rfc debe contener al menos 13 caracteres.')  is-invalid @else is-valid  @endif @enderror  @if(Session::has('mensaje'))  is-invalid @endif" name="rfc" value="{{ old('rfc') }}" required autocomplete="rfc" maxlength="13" autofocus pattern="[A-Za-z0-9]+" >
+                                <input style="text-transform:uppercase" id="rfc" type="text" class="form-control @error('rfc') @if ($errors->first('rfc')== 'Su rfc debe contener al menos 13 caracteres.')  is-invalid @else is-valid  @endif @enderror  @if(Session::has('mensaje'))  is-invalid @endif" name="rfc" value="{{ old('rfc') }}" required autocomplete="rfc" maxlength="13" autofocus pattern="[A-Za-z0-9]+" placeholder="ESCRIBA SU RFC">
 
                             @error('rfc')                                  
                             @if ($errors->first('rfc')== 'Su rfc debe contener al menos 13 caracteres.')                            
@@ -32,10 +34,9 @@
                             @endif                                                                                            
                             @enderror
 
-                             @if(Session::has('mensaje'))                              
+                            @if(Session::has('mensaje'))                              
                                 <span class="text-danger" role="alert"><strong>{{ Session::get('mensaje') }}</strong></span>                                
-                            @endif                       
-                        
+                            @endif                                               
                                 
                             </div>                                                                                                                                                
                         </div>                        
@@ -44,6 +45,23 @@
                     <form id="form2" method="POST" action="{{ route('register') }}">   
 
                     @csrf 
+
+                        <div class="form-group row">
+
+
+                            <div class="col-md-6">
+                              
+                                @if(Session::has('rfc'))                                  
+                                  <input id="rfc2" name="rfc2" type="hidden" value="{{ Session::get('rfc') }}">
+                                @endif 
+
+                                @if(Session::has('error'))                              
+                                <span class="text-danger" role="alert"><strong>{{ Session::get('error') }}</strong></span>                                
+                                @endif  
+
+                            </div>                                                                                                                                                
+                        </div>            
+
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Nombres') }}</label>
 

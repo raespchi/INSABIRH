@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Models\Filiacione;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
+use Session; //PARA USAR SESSIONES Y MANDAR MENSAJE EN MISMA PANTALLA
 
 class RegisterController extends Controller
 {
@@ -60,11 +62,9 @@ class RegisterController extends Controller
 
     protected function validator(array $data)
     {
-        return Validator::make($data, [                                
-            //'rfc' => ['required', 'string', 'min:13','unique:users'],           
-            'email' => ['required', 'string', 'email', 'max:255'],
-            //'password' => ['required', 'string', 'min:8', 'confirmed'],
-
+        return Validator::make($data, [            
+            'rfc2' => ['required', 'string', 'min:13'],                                            
+            'email' => ['required', 'string', 'email', 'max:255'],           
         ]);
     }
 
@@ -76,25 +76,33 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $code = $this->generarCodigo(6);
+       
+       if($data['rfc2']!=null){
+
+        $code = $this->generarCodigo(6);       
         $email = $data['email'];
         $dates = array('name' => $data['name'],'code' => $code);
         $this->Email($dates,$email);
 
+        // ACTUALIZO SU ACTIVACION A 2 EN LA TABLA filiaciones
+        Filiacione::where('rfc',$data['rfc2'])->update(['active' => '2']); 
+
         return User::create([
-            //'rfc' => strtoupper($data['rfc']),  //strtoupper convierte a mayusculas la cadena mandada         
+            'rfc' => strtoupper($data['rfc2']),  //strtoupper convierte a mayusculas la cadena mandada         
             'name' => strtoupper($data['name']),
             'last_name' => strtoupper($data['last_name']),
             'email' => $data['email'],
             'code' => $code,
             //'password' => Hash::make($data['password']),
-
         ]);
+
+        
+        }
     }
 
     function Email($dates,$email){
         Mail::send('emails.plantilla', $dates, function($message) use ($email){
-            $message->subject('Activa tu cuenta al portal');
+            $message->subject('Active su cuenta');
             $message->to($email);
             $message->from('rh@insabi.com','RH-INSABI');
         });

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
+use App\Models\Filiacione;
 use Redirect;
 use App\Http\Requests\UserRequest; //aqui mando a llamar al request que cree
 use Session; //PARA USAR SESSIONES Y MANDAR MENSAJE EN MISMA PANTALLA
@@ -40,20 +41,51 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function validarRFC(request $request)
-    {        
-       
+    {               
+
+        $rfc = $request->rfc;
+
         $validator = Validator::make($request->all(), [
-            'rfc' => ['required', 'string', 'min:13','unique:users'],  
+            'rfc' => ['required', 'string', 'min:13','unique:filiaciones'],  
         ]);
                
-        if ($validator->fails()) {           
+        $query = Filiacione::where('rfc',$rfc);
+        $exist = $query->count();
+        $fil = $query->first();
+
+        if($exist == 1 and $fil->active == 0)
+        {               
+        if ($validator->fails()) { 
+                
+               // ACTUALIZO SU ACTIVACION A 1 EN LA TABLA filiaciones
+               Filiacione::where('rfc',strtoupper($rfc))->update(['active' => '1']);   
+               Session::flash('rfc',$rfc);                  
+
+               // ESCRIBO SU RFC Y LO GUARDO EN LA TABLA USERS
+               /*$user = new User;
+               $user->rfc = strtoupper($rfc);
+               $user->save();*/
+
                 return Redirect('register')
                             ->withErrors($validator)
                             ->withInput();
-        }else{
-            Session::flash('mensaje',"El RFC escrito no se encuenta en nuestros registros de empleados.");        
-        return Redirect::to('register')  ;
-        }       
+        }
+        }
+        else if($exist == 1 and $fil->active == 1)
+        { 
+            Session::flash('mensaje',"Su rfc ya habia sido verificado y si se encuentra en nuestros datos, continue completando su registro.");   
+            Session::flash('rfc',$rfc);            
+            return Redirect::to('register')  ;
+        }
+        else if($exist == 1 and $fil->active == 2)
+        { 
+            Session::flash('mensaje',"Usted ya se encuentra registrado y ya puede acceder a la plataforma.");            
+            return Redirect::to('register')  ;
+        }
+        else{
+            Session::flash('mensaje',"El rfc escrito no se encuenta en nuestros registros de empleados.");            
+            return Redirect::to('register')  ;
+        }      
     }
 
     public function activate($code)
@@ -72,7 +104,6 @@ class UserController extends Controller
 
     public function complete(UserRequest $request,$id)
     {
-
         $user = User::find($id);
         $user->password = bcrypt($request->password);  
         $user->active = 1;
